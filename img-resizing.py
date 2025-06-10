@@ -1,9 +1,11 @@
 import os
 from PIL import Image
 
-MAX_SIZE = (900, 900)  # Maksimum genişlik ve yükseklik
+MAX_SIZE = (300, 300)  # Maksimum genişlik ve yükseklik
 
 folder = input("İşlem yapılacak klasörün tam yolunu girin: ").strip()
+output_folder = os.path.join(folder, "resizing")
+os.makedirs(output_folder, exist_ok=True)  # resizing klasörünü oluştur
 
 def resize_and_save(input_path, output_path):
     with Image.open(input_path) as img:
@@ -20,7 +22,7 @@ for filename in os.listdir(folder):
         name, ext = os.path.splitext(filename)
         output_filename = f"{name}-rsz{ext}"
         input_path = os.path.join(folder, filename)
-        output_path = os.path.join(folder, output_filename)
+        output_path = os.path.join(output_folder, output_filename)  # resizing klasörüne kaydet
         resize_and_save(input_path, output_path)
         print(f"{output_filename} kaydedildi.")
 
